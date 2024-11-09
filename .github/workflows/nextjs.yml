@@ -81,9 +81,6 @@ jobs:
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
         working-directory: ${{ env.working-directory }}
-      - name: Static HTML export with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next export
-        working-directory: ${{ env.working-directory }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
