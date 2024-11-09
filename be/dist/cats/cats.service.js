@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CatsService = void 0;
 const common_1 = require("@nestjs/common");
+const crawl_1 = require("../utils/crawl");
 let CatsService = class CatsService {
     constructor() {
         this.cats = [];
@@ -19,8 +20,7 @@ let CatsService = class CatsService {
         return this.cats;
     }
     async tot() {
-        const result = await fetch('https://www.tottenhamhotspur.com/fixtures/men');
-        return result.text();
+        await (0, crawl_1.crawlMatch)();
     }
 };
 exports.CatsService = CatsService;

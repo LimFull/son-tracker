@@ -10,16 +10,19 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const cats_controller_1 = require("./cats/cats.controller");
-const cats_service_1 = require("./cats/cats.service");
+const task_controller_1 = require("./task/task.controller");
+const task_service_1 = require("./task/task.service");
+const schedule_1 = require("@nestjs/schedule");
+const match_service_1 = require("./match/match.service");
+const match_controller_1 = require("./match/match.controller");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [],
-        controllers: [app_controller_1.AppController, cats_controller_1.CatsController],
-        providers: [app_service_1.AppService, cats_service_1.CatsService],
+        imports: [schedule_1.ScheduleModule.forRoot()],
+        controllers: [app_controller_1.AppController, task_controller_1.TaskController, match_controller_1.MatchController],
+        providers: [app_service_1.AppService, task_service_1.TaskService, match_service_1.MatchService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

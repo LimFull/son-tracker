@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CatsController } from './cats/cats.controller';
-import { CatsService } from './cats/cats.service';
+import { TaskController } from './task/task.controller';
+import { TaskService } from './task/task.service';
+import { ScheduleModule } from '@nestjs/schedule';
+import { MatchService } from './match/match.service';
+import { MatchController } from './match/match.controller';
 
 @Module({
-  imports: [],
-  controllers: [AppController, CatsController],
-  providers: [AppService, CatsService],
+  imports: [ScheduleModule.forRoot()],
+  controllers: [AppController, TaskController, MatchController],
+  providers: [AppService, TaskService, MatchService],
 })
 export class AppModule {}
