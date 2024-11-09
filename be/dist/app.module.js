@@ -15,12 +15,21 @@ const task_service_1 = require("./task/task.service");
 const schedule_1 = require("@nestjs/schedule");
 const match_service_1 = require("./match/match.service");
 const match_controller_1 = require("./match/match.controller");
+const throttler_1 = require("@nestjs/throttler");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [schedule_1.ScheduleModule.forRoot()],
+        imports: [
+            schedule_1.ScheduleModule.forRoot(),
+            throttler_1.ThrottlerModule.forRoot([
+                {
+                    ttl: 60000,
+                    limit: 60,
+                },
+            ]),
+        ],
         controllers: [app_controller_1.AppController, task_controller_1.TaskController, match_controller_1.MatchController],
         providers: [app_service_1.AppService, task_service_1.TaskService, match_service_1.MatchService],
     })

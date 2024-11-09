@@ -6,9 +6,18 @@ import { TaskService } from './task/task.service';
 import { ScheduleModule } from '@nestjs/schedule';
 import { MatchService } from './match/match.service';
 import { MatchController } from './match/match.controller';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
-  imports: [ScheduleModule.forRoot()],
+  imports: [
+    ScheduleModule.forRoot(),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 60,
+      },
+    ]),
+  ],
   controllers: [AppController, TaskController, MatchController],
   providers: [AppService, TaskService, MatchService],
 })

@@ -24,6 +24,7 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/schedule": "^4.1.1",
+    "@nestjs/throttler": "^6.2.1",
     "cheerio": "^1.0.0",
     "puppeteer": "^23.7.1",
     "reflect-metadata": "^0.2.0",

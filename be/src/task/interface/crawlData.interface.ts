@@ -1,13 +1,13 @@
 export interface Match {
   stadiumTag?: string;
   kickoff: {
-    week?: string[];
-    date?: string[];
+    week?: string;
+    date?: string;
     detailUrl?: string;
   };
   crests: {
-    logos?: string;
-    names?: string;
+    logos?: string[];
+    names?: string[];
     scores?: string;
   };
   stadium: {
