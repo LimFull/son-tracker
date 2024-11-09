@@ -29,7 +29,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-          working-directory: ./fe
+      working-directory: ./fe
     steps:
       - name: Checkout
         uses: actions/checkout@v4
