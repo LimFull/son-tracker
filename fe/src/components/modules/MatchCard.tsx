@@ -9,7 +9,6 @@ interface Props {
     data: Match
 }
 
-const isProd = process.env.NEXT_PUBLIC_MODE === 'prod';
 
 function MatchCard({data}: Props) {
 
