@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
     ...(isProd ? {output: 'export', basePath: '/son-tracker'} : {}),
     assetPrefix: prefix,
     images: {
+        unoptimized: true,
         remotePatterns: [
             {
                 protocol: 'https',
