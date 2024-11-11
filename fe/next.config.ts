@@ -4,7 +4,7 @@ const isProd = process.env.NEXT_PUBLIC_MODE === 'prod';
 const prefix = isProd ? `${process.env.NEXT_PUBLIC_URL}` : ''
 
 const nextConfig: NextConfig = {
-    ...(isProd ? {output: 'export'} : {}),
+    ...(isProd ? {output: 'export', basePath: '/son-tracker'} : {}),
     assetPrefix: prefix,
     images: {
         remotePatterns: [
