@@ -9,6 +9,8 @@ interface Props {
     data: Match
 }
 
+const isProd = process.env.NEXT_PUBLIC_MODE === 'prod';
+
 function MatchCard({data}: Props) {
 
     return <StyledLink className={`${!data.kickoff.detailUrl ? 'disable' : ''}`}
@@ -21,12 +23,14 @@ function MatchCard({data}: Props) {
             </DateArea>
             <ScoreArea>
                 <div className='img-card'>
-                    <Image src={data.crests.logos?.[0] ?? ''} alt={'team-logo'} width={50} height={50}/>
+                    <Image src={`${isProd ? 'son-tracker/' : ''}${data.crests.logos?.[0] ?? ''}`} alt={'team-logo'}
+                           width={50} height={50}/>
                     {data.crests.names?.[0] ?? ''}
                 </div>
                 {data.crests.scores}
                 <div className='img-card'>
-                    <Image src={data.crests.logos?.[1] ?? ''} alt={'team-logo'} width={50} height={50}/>
+                    <Image src={`${isProd ? 'son-tracker/' : ''}${data.crests.logos?.[1] ?? ''}`} alt={'team-logo'}
+                           width={50} height={50}/>
                     {data.crests.names?.[1] ?? ''}
                 </div>
             </ScoreArea>
