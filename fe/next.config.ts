@@ -1,9 +1,9 @@
 import type {NextConfig} from "next";
-import nextPwa from 'next-pwa';
+import withPWA from 'next-pwa';
 
 const isProd = process.env.NEXT_PUBLIC_MODE === 'prod';
 const prefix = isProd ? `${process.env.NEXT_PUBLIC_URL}` : ''
-const withPWA = nextPwa({dest:'public'})
+
 
 
 const nextConfig: NextConfig = {
@@ -22,4 +22,4 @@ const nextConfig: NextConfig = {
     }
 };
 
-export default withPWA(nextConfig);
+export default withPWA({...nextConfig, dest:'public'});
