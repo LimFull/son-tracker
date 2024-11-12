@@ -1,5 +1,4 @@
 import type {NextConfig} from "next";
-import withPWA from '@ducanh2912/next-pwa';
 
 const isProd = process.env.NEXT_PUBLIC_MODE === 'prod';
 const prefix = isProd ? `${process.env.NEXT_PUBLIC_URL}` : ''
@@ -22,4 +21,4 @@ const nextConfig: NextConfig ={
     }
 };
 
-export default withPWA({...nextConfig, dest:'out'});
+export default nextConfig;
