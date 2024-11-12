@@ -7,6 +7,7 @@ const prefix = isProd ? `${process.env.NEXT_PUBLIC_URL}` : ''
 
 const nextConfig: NextConfig ={
     ...(isProd ? {output: 'export', basePath: '/son-tracker'} : {}),
+    basePath: '/son-tracker',
     assetPrefix: prefix,
     images: {
         unoptimized: true,
@@ -21,4 +22,4 @@ const nextConfig: NextConfig ={
     }
 };
 
-export default withPWA({...nextConfig, dest:'public'});
+export default withPWA({...nextConfig, dest:'out'});
