@@ -9,6 +9,7 @@ export class MatchService {
     if (!Global.matchData) {
       console.log('no matchData. begin crawl');
       await crawlMatch();
+      console.log('crawl success');
     }
 
     return Global.matchData;
