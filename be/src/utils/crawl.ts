@@ -1,16 +1,17 @@
-import puppeteer, { Browser } from 'puppeteer';
+import puppeteer, { Browser, Page } from 'puppeteer';
 import * as cheerio from 'cheerio';
 import { Global } from '../global/global';
 
 export const crawlMatch = async () => {
   let browser: Browser;
+  let page: Page;
 
   try {
     browser = await puppeteer.launch({
       headless: true,
     });
 
-    const page = await browser.newPage();
+    page = await browser.newPage();
     await page.goto('https://www.tottenhamhotspur.com/fixtures/men');
     const content = await page.content();
 
@@ -65,6 +66,7 @@ export const crawlMatch = async () => {
   } catch (e) {
     console.error(e);
   } finally {
+    await page.close();
     await browser.close();
   }
 };
