@@ -3,6 +3,8 @@ export interface Match {
   kickoff: {
     week?: string;
     date?: string;
+    mark?: string;
+    state?: string;
     detailUrl?: string;
   };
   crests: {

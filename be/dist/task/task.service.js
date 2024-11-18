@@ -15,13 +15,15 @@ const common_1 = require("@nestjs/common");
 const schedule_1 = require("@nestjs/schedule");
 const global_1 = require("../global/global");
 const crawl_1 = require("../utils/crawl");
+const winston_1 = require("../utils/winston");
 let TaskService = TaskService_1 = class TaskService {
     constructor() {
         this.logger = new common_1.Logger(TaskService_1.name);
     }
     async handleCron() {
-        console.log('begin crawl task', global_1.Global.matchData);
+        winston_1.winstonLogger.log('begin crawl task', global_1.Global.matchData);
         await (0, crawl_1.crawlMatch)();
+        winston_1.winstonLogger.log('end crawl task', global_1.Global.matchData);
     }
 };
 exports.TaskService = TaskService;

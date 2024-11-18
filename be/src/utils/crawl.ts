@@ -1,7 +1,12 @@
 import puppeteer, { Browser, Page } from 'puppeteer';
 import * as cheerio from 'cheerio';
-import { Global } from '../global/global';
 import { winstonLogger } from './winston';
+import { LINKS } from '../constants/links';
+
+import { Global } from 'src/global/global';
+import { Match } from '../task/interface/crawlData.interface';
+
+const flag = false;
 
 export const crawlMatch = async () => {
   let browser: Browser;
@@ -9,56 +14,64 @@ export const crawlMatch = async () => {
 
   try {
     browser = await puppeteer.launch({
-      headless: true,
+      headless: false,
       timeout: 30000,
     });
 
     page = await browser.newPage();
-    await page.goto('https://www.tottenhamhotspur.com/fixtures/men');
+    await page.goto(LINKS.SON);
     const content = await page.content();
 
     const $ = cheerio.load(content);
-    const fixtureItmes = $('.FixtureItem__desktop');
-    const matchData = [];
+
+    // return {} as any;
+    const fixtureItmes = $('.timeline_box');
+    const matchData: Match[] = [];
     fixtureItmes.map((i, v) => {
       const content = $(v);
 
-      const stadiumTag = content.find('.stadium-tag').text();
-      const kickoffText = content
-        .find('.FixtureItem__kickoff')
-        .text()
-        .match(/(.*day)(.*)/)
-        .slice(1);
-      const detailUrl = content
-        .find('.FixtureItem__kickoff')
-        .find('a')
-        .attr('href');
-
-      const crests = content.find('.FixtureItem__crests');
+      const date = content.find('.cm_date').text();
+      const time = content.find('dt.blind:nth-of-type(1) + dd').text();
+      const state = content
+        .find('.match_round > .state_mark:first-of-type')
+        .text();
+      const mark = content
+        .find('.match_round > .state_mark:nth-of-type(2)')
+        .text();
+      const homeTeamName = content
+        .find('.match_list > li:nth-of-type(1) > .team_name')
+        .text();
+      const awayTeamName = content
+        .find('.match_list > li:nth-of-type(2) > .team_name')
+        .text();
+      const homeScore = content
+        .find('.match_list > li:nth-of-type(1) > .team_score')
+        .text();
+      const awayScore = content
+        .find('.match_list > li:nth-of-type(2) > .team_score')
+        .text();
       const logos = [];
-      crests.find('img').map((i, v) => logos.push($(v).attr('data-src')));
-      const names = [];
-      crests.find('p').map((_, v) => names.push($(v).text()));
-      const scores = crests.find('.scores').text();
-
-      const stadium = content.find('.FixtureItem__stadium');
-      const league = stadium.find('p:nth-child(1)').text();
-      const location = stadium.find('.location').text();
+      content
+        .find('.team_thumb')
+        .find('img')
+        .map((i, v) => logos.push($(v).attr('src')));
+      const location = content.find('.stadium').text();
 
       matchData.push({
-        stadiumTag: stadiumTag ?? null,
         kickoff: {
-          week: kickoffText?.[0] ?? null,
-          date: kickoffText?.[1] ?? null,
-          detailUrl: detailUrl ?? null,
+          week: date ?? null,
+          date: time ?? null,
+          state: state ?? null,
+          mark: mark ?? null,
+          detailUrl: null,
         },
         crests: {
           logos: logos ?? null,
-          names: names ?? null,
-          scores: scores ?? null,
+          names: [homeTeamName, awayTeamName],
+          scores:
+            homeScore && awayScore ? `${homeScore} vs ${awayScore}` : 'vs',
         },
         stadium: {
-          league: league ?? null,
           location: location ?? null,
         },
       });
@@ -72,5 +85,6 @@ export const crawlMatch = async () => {
     await browser.close();
   } catch (e) {
     winstonLogger.error(e);
+  } finally {
   }
 };

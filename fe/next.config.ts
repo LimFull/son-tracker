@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'cdne-totv8-prod-southeastasia.azureedge.net',
+                hostname: 'search.pstatic.net',
                 port: '',
                 pathname: '/**',
             }
