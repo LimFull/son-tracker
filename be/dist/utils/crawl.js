@@ -1,18 +1,44 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.crawlMatch = void 0;
-const puppeteer_1 = require("puppeteer");
-const cheerio = require("cheerio");
+const puppeteer_extra_1 = __importDefault(require("puppeteer-extra"));
+const cheerio = __importStar(require("cheerio"));
 const winston_1 = require("./winston");
 const links_1 = require("../constants/links");
 const global_1 = require("../global/global");
-const flag = false;
+const puppeteer_extra_plugin_stealth_1 = __importDefault(require("puppeteer-extra-plugin-stealth"));
 const crawlMatch = async () => {
     let browser;
     let page;
     try {
-        browser = await puppeteer_1.default.launch({
-            headless: false,
+        browser = await puppeteer_extra_1.default.use((0, puppeteer_extra_plugin_stealth_1.default)()).launch({
+            headless: true,
             timeout: 30000,
         });
         page = await browser.newPage();
@@ -49,7 +75,6 @@ const crawlMatch = async () => {
                 .find('img')
                 .map((i, v) => logos.push($(v).attr('src')));
             const location = content.find('.stadium').text();
-            console.log('time', time);
             matchData.push({
                 kickoff: {
                     week: date ?? null,

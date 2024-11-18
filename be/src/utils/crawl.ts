@@ -1,19 +1,19 @@
-import puppeteer, { Browser, Page } from 'puppeteer';
+import { Browser, Page } from 'puppeteer';
+import puppeteer from 'puppeteer-extra';
 import * as cheerio from 'cheerio';
 import { winstonLogger } from './winston';
 import { LINKS } from '../constants/links';
 
 import { Global } from 'src/global/global';
 import { Match } from '../task/interface/crawlData.interface';
-
-const flag = false;
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
 export const crawlMatch = async () => {
   let browser: Browser;
   let page: Page;
 
   try {
-    browser = await puppeteer.launch({
+    browser = await puppeteer.use(StealthPlugin()).launch({
       headless: true,
       timeout: 30000,
     });
