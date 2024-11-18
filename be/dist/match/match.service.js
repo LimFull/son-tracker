@@ -10,11 +10,13 @@ exports.MatchService = void 0;
 const common_1 = require("@nestjs/common");
 const global_1 = require("../global/global");
 const crawl_1 = require("../utils/crawl");
+const winston_1 = require("../utils/winston");
 let MatchService = class MatchService {
     async match() {
         if (!global_1.Global.matchData) {
-            console.log('no matchData. begin crawl');
+            winston_1.winstonLogger.log('no matchData. begin crawl');
             await (0, crawl_1.crawlMatch)();
+            winston_1.winstonLogger.log('crawl success');
         }
         return global_1.Global.matchData;
     }

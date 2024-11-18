@@ -4,10 +4,9 @@ const isProd = process.env.NEXT_PUBLIC_MODE === 'prod';
 const prefix = isProd ? `${process.env.NEXT_PUBLIC_URL}` : ''
 
 
-const nextConfig: NextConfig ={
-    ...(isProd ? {output: 'export', basePath: '/son-tracker'} : {}),
-    basePath: '/son-tracker',
-    assetPrefix: prefix,
+const nextConfig: NextConfig = {
+    ...(isProd ? {output: 'export', basePath: '/son-tracker', assetPrefix: prefix,} : {}),
+
     images: {
         unoptimized: true,
         remotePatterns: [

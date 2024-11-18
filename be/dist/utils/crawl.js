@@ -4,13 +4,15 @@ exports.crawlMatch = void 0;
 const puppeteer_1 = require("puppeteer");
 const cheerio = require("cheerio");
 const global_1 = require("../global/global");
+const winston_1 = require("./winston");
 const crawlMatch = async () => {
     let browser;
+    let page;
     try {
         browser = await puppeteer_1.default.launch({
             headless: true,
         });
-        const page = await browser.newPage();
+        page = await browser.newPage();
         await page.goto('https://www.tottenhamhotspur.com/fixtures/men');
         const content = await page.content();
         const $ = cheerio.load(content);
@@ -58,9 +60,12 @@ const crawlMatch = async () => {
         global_1.Global.matchData = matchData;
     }
     catch (e) {
-        console.error(e);
+        winston_1.winstonLogger.error(e);
     }
     finally {
+        winston_1.winstonLogger.log('close page');
+        await page.close();
+        winston_1.winstonLogger.log('close browser');
         await browser.close();
     }
 };

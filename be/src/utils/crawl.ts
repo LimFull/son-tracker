@@ -1,6 +1,7 @@
 import puppeteer, { Browser, Page } from 'puppeteer';
 import * as cheerio from 'cheerio';
 import { Global } from '../global/global';
+import { winstonLogger } from './winston';
 
 export const crawlMatch = async () => {
   let browser: Browser;
@@ -63,10 +64,12 @@ export const crawlMatch = async () => {
     });
 
     Global.matchData = matchData;
-  } catch (e) {
-    console.error(e);
-  } finally {
+
+    winstonLogger.log('close page');
     await page.close();
+    winstonLogger.log('close browser');
     await browser.close();
+  } catch (e) {
+    winstonLogger.error(e);
   }
 };
