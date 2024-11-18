@@ -10,6 +10,7 @@ export const crawlMatch = async () => {
   try {
     browser = await puppeteer.launch({
       headless: true,
+      timeout: 30000,
     });
 
     page = await browser.newPage();
