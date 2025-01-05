@@ -31,8 +31,8 @@ const puppeteer_extra_1 = __importDefault(require("puppeteer-extra"));
 const cheerio = __importStar(require("cheerio"));
 const winston_1 = require("./winston");
 const links_1 = require("../constants/links");
-const global_1 = require("../global/global");
 const puppeteer_extra_plugin_stealth_1 = __importDefault(require("puppeteer-extra-plugin-stealth"));
+const fs = __importStar(require("node:fs"));
 const crawlMatch = async () => {
     let browser;
     let page;
@@ -93,16 +93,28 @@ const crawlMatch = async () => {
                 },
             });
         });
-        global_1.Global.matchData = matchData;
-        winston_1.winstonLogger.log('close page');
-        await page.close();
-        winston_1.winstonLogger.log('close browser');
-        await browser.close();
+        fs.writeFile('./result.json', JSON.stringify(matchData), 'utf8', (err) => {
+            if (err) {
+                console.error(err);
+            }
+            else {
+                console.log('File Saved');
+            }
+        });
     }
     catch (e) {
         winston_1.winstonLogger.error(e);
     }
     finally {
+        try {
+            winston_1.winstonLogger.log('close page');
+            await page.close();
+            winston_1.winstonLogger.log('close browser');
+            await browser.close();
+        }
+        catch (e) {
+            winston_1.winstonLogger.log('finally에서 에러났습니다', e);
+        }
     }
 };
 exports.crawlMatch = crawlMatch;

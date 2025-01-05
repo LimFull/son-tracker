@@ -1,4 +1,7 @@
 import { Match } from '../task/interface/crawlData.interface';
-export declare class Global {
+declare class Global {
     static matchData: Match[];
+    getData: () => Promise<Match[]>;
 }
+declare const _default: Global;
+export default _default;

@@ -4,9 +4,9 @@ import * as cheerio from 'cheerio';
 import { winstonLogger } from './winston';
 import { LINKS } from '../constants/links';
 
-import { Global } from 'src/global/global';
 import { Match } from '../task/interface/crawlData.interface';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+import * as fs from 'node:fs';
 
 export const crawlMatch = async () => {
   let browser: Browser;
@@ -77,14 +77,28 @@ export const crawlMatch = async () => {
       });
     });
 
-    Global.matchData = matchData;
-
-    winstonLogger.log('close page');
-    await page.close();
-    winstonLogger.log('close browser');
-    await browser.close();
+    fs.writeFile(
+      './result.json',
+      JSON.stringify(matchData),
+      'utf8',
+      (err: any) => {
+        if (err) {
+          console.error(err);
+        } else {
+          console.log('File Saved');
+        }
+      },
+    );
   } catch (e) {
     winstonLogger.error(e);
   } finally {
+    try {
+      winstonLogger.log('close page');
+      await page.close();
+      winstonLogger.log('close browser');
+      await browser.close();
+    } catch (e: any) {
+      winstonLogger.log('finally에서 에러났습니다', e);
+    }
   }
 };

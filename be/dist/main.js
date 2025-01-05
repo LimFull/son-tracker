@@ -8,7 +8,12 @@ async function bootstrap() {
         logger: winston_1.winstonLogger,
     });
     app.enableCors();
-    await app.listen(process.env.PORT ?? 3000);
+    try {
+        await app.listen(process.env.PORT ?? 3000);
+    }
+    catch (e) {
+        winston_1.winstonLogger.log('CRASH!!!', e);
+    }
 }
 bootstrap();
 //# sourceMappingURL=main.js.map
