@@ -15,6 +15,7 @@
     "i": "^0.3.7",
     "lodash": "^4.17.21",
     "next": "15.0.3",
+    "next-pwa": "^5.6.0",
     "npm": "^10.9.0",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.60.1",
     "@types/lodash": "^4.17.13",
+    "@types/next-pwa": "^5.6.9",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
