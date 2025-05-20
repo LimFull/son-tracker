@@ -9,7 +9,7 @@ async function bootstrap() {
     });
     app.enableCors();
     try {
-        await app.listen(process.env.PORT ?? 3000);
+        await app.listen(process.env.PORT ?? 4001);
     }
     catch (e) {
         winston_1.winstonLogger.log('CRASH!!!', e);

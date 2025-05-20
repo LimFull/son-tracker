@@ -9,14 +9,15 @@ const withPWA = next_pwa({
     disable: !isProd, // dev 모드에선 꺼두기
 });
 
+console.log("isProd", isProd);
 const nextConfig = {
     // ...(isProd
     //   ? { output: "export", basePath: "/son-tracker", assetPrefix: prefix }
     //   : {}),
     output: "export" as "export" | undefined,
-    basePath: isProd ? 'son-tracker' : '',
-    // basePath: "/son-tracker",
-    assetPrefix: prefix,
+    // basePath: isProd ? 'son-tracker' : '',
+    basePath: "",
+    assetPrefix: isProd ? prefix : '',
 
     images: {
         unoptimized: true,

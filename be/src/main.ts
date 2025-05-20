@@ -2,8 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { winstonLogger } from './utils/winston';
 
-
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: winstonLogger,
@@ -11,7 +9,7 @@ async function bootstrap() {
   app.enableCors();
 
   try {
-    await app.listen(process.env.PORT ?? 3000);
+    await app.listen(process.env.PORT ?? 4001);
   } catch (e) {
     winstonLogger.log('CRASH!!!', e);
   }
