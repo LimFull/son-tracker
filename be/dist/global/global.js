@@ -30,7 +30,6 @@ class Global {
             try {
                 const buffer = await fs.promises.readFile('./result.json', 'utf-8');
                 const result = JSON.parse(buffer);
-                console.log('Get Data Result!!!', result);
                 return result;
             }
             catch (e) {

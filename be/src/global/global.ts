@@ -1,5 +1,6 @@
 import { Match } from '../task/interface/crawlData.interface';
 import * as fs from 'node:fs';
+import { winstonLogger } from '../utils/winston';
 
 class Global {
   static matchData: Match[];
