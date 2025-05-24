@@ -16,6 +16,14 @@ export const crawlMatch = async () => {
     browser = await puppeteer.use(StealthPlugin()).launch({
       headless: true,
       timeout: 30000,
+      executablePath: '/usr/bin/chromium-browser',
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--disable-gpu',
+      ],
     });
 
     page = await browser.newPage();
