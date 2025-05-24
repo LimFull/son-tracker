@@ -21,18 +21,10 @@ export const crawlMatch = async () => {
         '--no-sandbox',
         '--disable-setuid-sandbox',
         '--disable-dev-shm-usage',
-        '--disable-accelerated-2d-canvas',
         '--disable-gpu',
         '--disable-extensions',
-        '--disable-component-extensions-with-background-pages',
-        '--disable-default-apps',
-        '--mute-audio',
-        '--no-zygote',
         '--no-first-run',
-        '--single-process',
-        '--disable-features=site-per-process',
       ],
-      ignoreDefaultArgs: ['--enable-automation'],
     });
 
     page = await browser.newPage();

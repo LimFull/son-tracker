@@ -39,10 +39,30 @@ const crawlMatch = async () => {
     try {
         browser = await puppeteer_extra_1.default.use((0, puppeteer_extra_plugin_stealth_1.default)()).launch({
             headless: true,
-            timeout: 30000,
+            timeout: 60000,
+            executablePath: '/usr/bin/chromium-browser',
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-gpu',
+                '--disable-extensions',
+                '--no-first-run',
+            ],
         });
         page = await browser.newPage();
-        await page.goto(links_1.LINKS.SON);
+        await page.setDefaultNavigationTimeout(60000);
+        await page.setRequestInterception(true);
+        page.on('request', (request) => {
+            const resourceType = request.resourceType();
+            if (resourceType === 'stylesheet' || resourceType === 'font') {
+                request.abort();
+            }
+            else {
+                request.continue();
+            }
+        });
+        await page.goto(links_1.LINKS.SON, { waitUntil: 'networkidle0' });
         const content = await page.content();
         const $ = cheerio.load(content);
         const fixtureItmes = $('.timeline_box');
