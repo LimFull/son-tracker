@@ -1,7 +1,6 @@
 import next_pwa from "next-pwa";
 
 const isProd = process.env.NEXT_PUBLIC_MODE === "prod";
-const prefix = isProd ? `${process.env.NEXT_PUBLIC_URL}` : "";
 const withPWA = next_pwa({
     dest: "public",
     register: true,
@@ -11,14 +10,7 @@ const withPWA = next_pwa({
 
 console.log("isProd", isProd);
 const nextConfig = {
-    // ...(isProd
-    //   ? { output: "export", basePath: "/son-tracker", assetPrefix: prefix }
-    //   : {}),
-    output: "export" as "export" | undefined,
-    // basePath: isProd ? 'son-tracker' : '',
     basePath: "",
-    assetPrefix: isProd ? prefix : '',
-
     images: {
         unoptimized: true,
         remotePatterns: [
