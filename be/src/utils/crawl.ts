@@ -15,7 +15,7 @@ export const crawlMatch = async () => {
   try {
     browser = await puppeteer.use(StealthPlugin()).launch({
       headless: true,
-      timeout: 30000,
+      timeout: 60000,
       executablePath: '/usr/bin/chromium-browser',
       args: [
         '--no-sandbox',
@@ -23,11 +23,36 @@ export const crawlMatch = async () => {
         '--disable-dev-shm-usage',
         '--disable-accelerated-2d-canvas',
         '--disable-gpu',
+        '--disable-extensions',
+        '--disable-component-extensions-with-background-pages',
+        '--disable-default-apps',
+        '--mute-audio',
+        '--no-zygote',
+        '--no-first-run',
+        '--single-process',
+        '--disable-features=site-per-process',
       ],
+      ignoreDefaultArgs: ['--enable-automation'],
     });
 
     page = await browser.newPage();
-    await page.goto(LINKS.SON);
+    await page.setDefaultNavigationTimeout(60000);
+    await page.setRequestInterception(true);
+
+    page.on('request', (request) => {
+      const resourceType = request.resourceType();
+      if (
+        resourceType === 'image' ||
+        resourceType === 'stylesheet' ||
+        resourceType === 'font'
+      ) {
+        request.abort();
+      } else {
+        request.continue();
+      }
+    });
+
+    await page.goto(LINKS.SON, { waitUntil: 'networkidle0' });
     const content = await page.content();
 
     const $ = cheerio.load(content);
