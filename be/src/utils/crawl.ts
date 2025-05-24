@@ -41,11 +41,7 @@ export const crawlMatch = async () => {
 
     page.on('request', (request) => {
       const resourceType = request.resourceType();
-      if (
-        resourceType === 'image' ||
-        resourceType === 'stylesheet' ||
-        resourceType === 'font'
-      ) {
+      if (resourceType === 'stylesheet' || resourceType === 'font') {
         request.abort();
       } else {
         request.continue();
