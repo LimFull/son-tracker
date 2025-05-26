@@ -16,7 +16,7 @@ async function bootstrap() {
   app.enableCors();
 
   try {
-    await app.listen(process.env.PORT ?? 443);
+    await app.listen(process.env.PORT ?? 4001);
   } catch (e) {
     winstonLogger.log('CRASH!!!', e);
   }
