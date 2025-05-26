@@ -14,7 +14,7 @@ console.log("isProd", isProd);
 const nextConfig = {
     output: "export" as "export" | undefined,
     assetPrefix: isProd ? prefix : '',
-    basePath: "",
+    basePath: isProd ? '/son-tracker' : '',
     images: {
         unoptimized: true,
         remotePatterns: [
