@@ -67,6 +67,8 @@ fe/.next-*
 **/.env.local
 **/.env.development
 **/.env.production
+fe/.env.production
+be/.env.production
 
 # Service Worker
 **/firebase-messaging-sw.js
