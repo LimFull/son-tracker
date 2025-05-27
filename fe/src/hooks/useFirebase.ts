@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getMessaging, getToken, Messaging } from 'firebase/messaging';
 import { firebaseConfig } from '@/constants/config';
+import { isProd } from '@/constants/env';
 
 export const useFirebase = () => {
   const [fcmToken, setFcmToken] = useState<string | null>(null);
@@ -42,7 +43,8 @@ export const useFirebase = () => {
       if (permission === 'granted') {
         console.log('권한이 허용됨, 토큰 요청 시작');
         const token = await getToken(messaging, {
-          vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY
+          vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
+          serviceWorkerRegistration: await navigator.serviceWorker.getRegistration()
         });
         
         if (token) {
@@ -69,6 +71,20 @@ export const useFirebase = () => {
         const messagingInstance = getMessaging(app);
         setMessaging(messagingInstance);
         console.log('Firebase 초기화 완료');
+
+        // Service Worker 등록
+        if ('serviceWorker' in navigator) {
+          try {
+            const swPath = `${isProd ? '/son-tracker' : ''}/firebase-messaging-sw.js`;
+            const registration = await navigator.serviceWorker.register(swPath, {
+              scope: isProd ? '/son-tracker/' : '/'
+            });
+            console.log('Service Worker 등록 성공:', registration);
+          } catch (error) {
+            console.error('Service Worker 등록 실패:', error);
+            console.error('에러 상세:', error instanceof Error ? error.message : '알 수 없는 에러');
+          }
+        }
 
         // 현재 알림 권한 상태 확인
         const currentPermission = Notification.permission;

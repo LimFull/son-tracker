@@ -126,8 +126,9 @@ jobs:
       - name: Copy Service Worker
         run: |
           if [ -f "public/firebase-messaging-sw.js" ]; then
-            cp public/firebase-messaging-sw.js out/
-            echo "Service Worker file copied to out directory"
+            mkdir -p out/son-tracker
+            cp public/firebase-messaging-sw.js out/son-tracker/
+            echo "Service Worker file copied to out/son-tracker directory"
           else
             echo "Warning: Service Worker file not found in public directory"
           fi
