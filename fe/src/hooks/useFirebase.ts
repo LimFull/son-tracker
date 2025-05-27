@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
 import { getMessaging, getToken } from 'firebase/messaging';
 import { firebaseConfig } from '@/constants/config';
 
