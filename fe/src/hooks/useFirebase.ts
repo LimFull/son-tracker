@@ -32,7 +32,6 @@ export const useFirebase = () => {
       try {
         // Firebase 초기화
         const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
         const messaging = getMessaging(app);
 
         // 알림 권한 확인
