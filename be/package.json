@@ -21,11 +21,13 @@
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/schedule": "^4.1.1",
     "@nestjs/throttler": "^6.2.1",
     "cheerio": "^1.0.0",
+    "firebase-admin": "^13.4.0",
     "nest-winston": "^1.9.7",
     "puppeteer": "^23.7.1",
     "puppeteer-extra": "^3.3.6",

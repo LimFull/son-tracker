@@ -8,9 +8,11 @@ import { MatchService } from './match/match.service';
 import { MatchController } from './match/match.controller';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { NotificationModule } from './notification/notification.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     ScheduleModule.forRoot(),
     ThrottlerModule.forRoot([
       {
