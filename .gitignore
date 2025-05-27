@@ -61,3 +61,16 @@ fe/.next
 fe/output
 fe/.next-*
 **/public
+
+# environment variables
+**/.env
+**/.env.local
+**/.env.development
+**/.env.production
+
+# Service Worker
+**/firebase-messaging-sw.js
+
+# Data directory and FCM tokens
+be/data/
+be/data/fcm-tokens.json

@@ -16,6 +16,7 @@ const schedule_1 = require("@nestjs/schedule");
 const match_service_1 = require("./match/match.service");
 const match_controller_1 = require("./match/match.controller");
 const throttler_1 = require("@nestjs/throttler");
+const notification_module_1 = require("./notification/notification.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -29,6 +30,7 @@ exports.AppModule = AppModule = __decorate([
                     limit: 60,
                 },
             ]),
+            notification_module_1.NotificationModule,
         ],
         controllers: [app_controller_1.AppController, task_controller_1.TaskController, match_controller_1.MatchController],
         providers: [app_service_1.AppService, task_service_1.TaskService, match_service_1.MatchService],

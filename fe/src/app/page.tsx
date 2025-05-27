@@ -1,71 +1,20 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
-import useGetMatch from "@/hooks/useGetMatch";
-import { groupBy } from "lodash";
-import styled from "styled-components";
-import MatchCard from "@/components/modules/MatchCard";
+import { useEffect } from "react";
+import { useFirebase } from '@/hooks/useFirebase';
+import { MatchList } from '@/components/modules/MatchList';
 
 export default function Home() {
-  const { data: matchData } = useGetMatch();
-
-  const groupedMatch = useMemo(() => {
-    if (!matchData) {
-      return [];
-    }
-
-    const grouped = Object.values(
-      groupBy(matchData, (match) => match.kickoff.week?.split(".")[0]),
-    );
-    return grouped;
-  }, [matchData]);
-
-  console.log("groupdematch", groupedMatch);
+  const { notificationPermission } = useFirebase();
 
   useEffect(() => {
-    console.log("matchData", matchData);
-  }, [matchData]);
+    // 알림 권한 상태 로깅 (디버깅용)
+    console.log('Notification Permission:', notificationPermission);
+  }, [notificationPermission]);
 
   return (
-    <Container>
-      {groupedMatch.map((matches, matchesIndex) => {
-        const month = matches[0].kickoff.week?.split(".")[0];
-
-        return (
-          <Group key={matchesIndex}>
-            <div className="month">{month}</div>
-            <MatchCards>
-              {matches.map((match, matchIndex) => {
-                return <MatchCard data={match} key={matchIndex} />;
-              })}
-            </MatchCards>
-          </Group>
-        );
-      })}
-    </Container>
+    <main className="flex min-h-screen flex-col items-center p-4 md:p-24">
+      <MatchList />
+    </main>
   );
 }
-
-const MatchCards = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-`;
-
-const Group = styled.div`
-  .month {
-    text-transform: uppercase;
-    font-weight: 400;
-    text-align: center;
-    margin: 20px 0 10px;
-    font-size: 20px;
-    color: #0b0e1e;
-  }
-`;
-
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-
-  overflow-y: scroll;
-`;

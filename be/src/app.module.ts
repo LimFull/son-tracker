@@ -7,6 +7,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { MatchService } from './match/match.service';
 import { MatchController } from './match/match.controller';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
         limit: 60,
       },
     ]),
+    NotificationModule,
   ],
   controllers: [AppController, TaskController, MatchController],
   providers: [AppService, TaskService, MatchService],

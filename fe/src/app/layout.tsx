@@ -21,6 +21,8 @@ export const metadata: Metadata = {
     manifest: `${isProd ? '/son-tracker' : ''}/manifest.json`,
 };
 
+
+
 export default function RootLayout({
                                        children,
                                    }: Readonly<{
