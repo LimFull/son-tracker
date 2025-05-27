@@ -94,14 +94,18 @@ jobs:
         working-directory: ${{ env.working-directory }}
       - name: Debug environment variables
         run: |
-          echo "Checking if Firebase config is set:"
-          if [ ! -z "$NEXT_PUBLIC_FIREBASE_PROJECT_ID" ]; then
-            echo "NEXT_PUBLIC_FIREBASE_PROJECT_ID is set"
+          echo "Checking if Firebase config secrets are set:"
+          if [ ! -z "${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}" ]; then
+            echo "NEXT_PUBLIC_FIREBASE_PROJECT_ID secret is set"
           else
-            echo "NEXT_PUBLIC_FIREBASE_PROJECT_ID is NOT set"
+            echo "NEXT_PUBLIC_FIREBASE_PROJECT_ID secret is NOT set"
           fi
-        env:
-          NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}
+          
+          if [ ! -z "${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}" ]; then
+            echo "NEXT_PUBLIC_FIREBASE_API_KEY secret is set"
+          else
+            echo "NEXT_PUBLIC_FIREBASE_API_KEY secret is NOT set"
+          fi
         working-directory: ${{ env.working-directory }}
       - name: Build with Next.js
         env:
