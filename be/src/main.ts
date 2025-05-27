@@ -5,6 +5,7 @@ import * as fs from 'fs';
 
 async function bootstrap() {
   const isDev = process.env.NODE_ENV !== 'production';
+  console.log('isDev', isDev);
   
   let app;
   if (isDev) {
