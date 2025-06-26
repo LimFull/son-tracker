@@ -7,7 +7,8 @@ import {Match} from "@/types/match";
 function useGetMatch() {
     return useQuery<Match[]>({
         queryKey: ['GET_MATCH'],
-        queryFn: () => getMatch().then(r => r.data)
+        queryFn: () => getMatch().then(r => r.data),
+        staleTime: 1000 * 60,
     })
 }
 

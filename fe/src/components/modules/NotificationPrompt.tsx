@@ -1,19 +1,24 @@
-interface Props {
-  permission: NotificationPermission;
-  onRequestPermission: () => Promise<void>;
-}
+"use client";
 
-export const NotificationPrompt = ({
-  permission,
-  onRequestPermission,
-}: Props) => {
-  switch (permission) {
+import { useEffect } from "react";
+import { useFirebase } from '@/hooks/useFirebase';
+
+
+
+export const NotificationPrompt = () => {
+  const { notificationPermission, requestNotificationPermission } = useFirebase();
+
+  useEffect(() => {
+    console.log('Notification Permission:', notificationPermission);
+  }, [notificationPermission]);
+
+  switch (notificationPermission) {
     case 'default':
       return (
         <div className="mb-4 p-4 bg-blue-100 rounded-lg">
           <p className="mb-2">손흥민의 경기 알림을 받아보시겠습니까?</p>
           <button
-            onClick={onRequestPermission}
+            onClick={requestNotificationPermission}
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
           >
             알림 받기

@@ -8,6 +8,9 @@ const nextConfig = {
     unoptimized: true,
   },
   basePath: process.env.NODE_ENV === 'production' ? '/son-tracker' : '',
+  compiler: {
+    styledComponents: true,
+  },
   webpack: (config, { isServer }) => {
     // 서버가 아닐 때 (클라이언트 빌드일 때) Service Worker 생성
     if (!isServer) {
